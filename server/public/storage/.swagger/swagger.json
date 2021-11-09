@@ -1,0 +1,1529 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "https://virtserver.swaggerhub.com/AClain/iTalks/0.4"
+    },
+    {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "http://localhost:8000/api"
+    }
+  ],
+  "info": {
+    "description": "iTalks API",
+    "version": "0.4",
+    "title": "iTalks API",
+    "contact": {
+      "email": "alexandre.clain11@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "tags": [
+    {
+      "name": "admins/user",
+      "description": "Secured Admin-only calls for the User model"
+    },
+    {
+      "name": "admins/status",
+      "description": "Secured Admin-only calls for the Badge model"
+    },
+    {
+      "name": "admins/badge",
+      "description": "Secured Admin-only calls for the Badge model"
+    },
+    {
+      "name": "admins/role",
+      "description": "Secured Admin-only calls for the Role model"
+    },
+    {
+      "name": "authenticated/profil",
+      "description": "Secured Authenticated-only calls for the User model"
+    },
+    {
+      "name": "authenticated/post",
+      "description": "Secured Authenticated-only calls for the Post model"
+    },
+    {
+      "name": "authenticated/comment",
+      "description": "Secured Authenticated-only calls for the Comment model"
+    },
+    {
+      "name": "authenticated/vote",
+      "description": "Secured Authenticated-only calls for the Feedback model"
+    },
+    {
+      "name": "authenticated/follow",
+      "description": "Secured Authenticated-only calls for the Follow model"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Home page",
+        "responses": {
+          "200": {
+            "description": "Server ready and open to requests"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get users",
+        "tags": [
+          "admins/user"
+        ],
+        "responses": {
+          "201": {
+            "description": "Utilisateur enregistré avec succès!"
+          }
+        }
+      },
+      "post": {
+        "summary": "posts users",
+        "tags": [
+          "admins/user"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le post a été créé avec succès!"
+          },
+          "500": {
+            "description": "Une erreur sest produite, veuillez réessayer.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/id/{id}": {
+      "get": {
+        "summary": "users",
+        "tags": [
+          "admins/user"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "The user ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Utilisateur enregistré avec succès!"
+          }
+        }
+      }
+    },
+    "/user/username/{username}": {
+      "get": {
+        "summary": "Get user selon username",
+        "tags": [
+          "admins/user"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the user username"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur a été créer avec succès!"
+          }
+        }
+      }
+    },
+    "/user/{username}": {
+      "post": {
+        "summary": "Post user selon username",
+        "tags": [
+          "admins/user"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the user username"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur enregistré avec succès!"
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete user selon username",
+        "tags": [
+          "admins/user"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the user username"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Utilisateur supprimé avec succès! "
+          }
+        }
+      }
+    },
+    "/user/{username}/avatar": {
+      "post": {
+        "summary": "Post selon l'username - avatar",
+        "tags": [
+          "admins/user"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the user username"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Avatar enregistré avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete selon username - avatar",
+        "tags": [
+          "admins/user"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "the user username"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Avatar supprimé avec succès"
+          }
+        }
+      }
+    },
+    "/statuses": {
+      "get": {
+        "summary": "Get statuses",
+        "tags": [
+          "admins/status"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le statut a été créé avec succès!"
+          }
+        }
+      },
+      "post": {
+        "summary": "create status",
+        "tags": [
+          "admins/status"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le statut a été enregisté avec succès!"
+          }
+        }
+      }
+    },
+    "/status/{id}": {
+      "get": {
+        "summary": "Get statuses",
+        "tags": [
+          "admins/status"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "On prend l'id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le statut a été créé avec succès!"
+          }
+        }
+      },
+      "put": {
+        "summary": "Get statuses",
+        "tags": [
+          "admins/status"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "mettre a jour l'id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le statut a été mise à jour avec succès!"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Get statuses",
+        "tags": [
+          "admins/status"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "supp l'id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le statut a été supprimé avec succès!"
+          }
+        }
+      }
+    },
+    "/badges": {
+      "get": {
+        "summary": "Get badges",
+        "tags": [
+          "admins/badge"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le badge a été créé avec succès!"
+          }
+        }
+      },
+      "post": {
+        "summary": "post badges",
+        "tags": [
+          "admins/badge"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le badge a été enregisté avec succès!"
+          }
+        }
+      }
+    },
+    "/badge/{id}": {
+      "get": {
+        "summary": "Get badge id",
+        "tags": [
+          "admins/badge"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "prend id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le badge a été créé avec succès!"
+          }
+        }
+      },
+      "put": {
+        "summary": "Get badge id",
+        "tags": [
+          "admins/badge"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "prend id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le badge a été mise à jour avec succès!"
+          }
+        }
+      },
+      "delete": {
+        "summary": "supprimer badge id",
+        "tags": [
+          "admins/badge"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "supp l'id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le badge a été supprimer avec succès!"
+          }
+        }
+      }
+    },
+    "/badge/{id}/image": {
+      "post": {
+        "summary": "recup id - image",
+        "tags": [
+          "admins/badge"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "prend id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Les badges ont bien été liés à l'utilisateur"
+          }
+        }
+      },
+      "delete": {
+        "summary": "supp id image",
+        "tags": [
+          "admins/badge"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "supp id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Les badges ont bien été déliés de l'utilisateur."
+          }
+        }
+      }
+    },
+    "/badges/link/{user_id}": {
+      "get": {
+        "summary": "recup le badge on associe a user",
+        "tags": [
+          "admins/badge"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "prend id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Les badges ont bien été créer à l'utilisateur."
+          }
+        }
+      },
+      "post": {
+        "summary": "on prend le badge on associe au user",
+        "tags": [
+          "admins/badge"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "prend id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Les badges ont bien été lié à l'utilisateur."
+          }
+        }
+      }
+    },
+    "/badges/unlink/{user_id}": {
+      "post": {
+        "summary": "on enleve le badge a user concerner",
+        "tags": [
+          "admins/badge"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "on prend le badge de l'user"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Les badges ont bien été déliés."
+          }
+        }
+      }
+    },
+    "/roles": {
+      "get": {
+        "summary": "Get roles",
+        "tags": [
+          "admins/role"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le role a été créé avec succès!"
+          }
+        }
+      },
+      "post": {
+        "summary": "post roles",
+        "tags": [
+          "admins/role"
+        ],
+        "responses": {
+          "200": {
+            "description": "Le role a été enregisté avec succès!"
+          }
+        }
+      }
+    },
+    "/role/{id}": {
+      "get": {
+        "summary": "recup le role par rapport a id",
+        "tags": [
+          "admins/role"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "role id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le role a été créé avec succès!"
+          }
+        }
+      },
+      "put": {
+        "summary": "modif le role par rapport a id",
+        "tags": [
+          "admins"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "role id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le role a été mise à jour avec succès!"
+          }
+        }
+      },
+      "delete": {
+        "summary": "supprimer role par rapport a id",
+        "tags": [
+          "admins/role"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "supp role - id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le role a été suprrimer avec succès!"
+          }
+        }
+      }
+    },
+    "/profil": {
+      "get": {
+        "summary": "Get authenticated User information",
+        "tags": [
+          "authenticated/profil"
+        ],
+        "responses": {
+          "201": {
+            "description": "Utilisateur trouvé avec succès"
+          }
+        }
+      }
+    },
+    "/profil/comments": {
+      "get": {
+        "summary": "Get authenticated User comments",
+        "tags": [
+          "authenticated/profil"
+        ],
+        "responses": {
+          "201": {
+            "description": "Commentaire créer avec succès!"
+          }
+        }
+      }
+    },
+    "/followers/{user_id}": {
+      "get": {
+        "summary": "List of a User followers by user_id",
+        "tags": [
+          "authenticated/follow"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Followers créer avec succès !"
+          }
+        }
+      }
+    },
+    "/followings/{user_id}": {
+      "get": {
+        "summary": "List of a User followings by user_id",
+        "tags": [
+          "authenticated/follow"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Followers a été créer avec succès !"
+          }
+        }
+      }
+    },
+    "/posts/image": {
+      "get": {
+        "summary": "Creates a new Post with one or none image Resource",
+        "tags": [
+          "authenticated/post"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le post a été créer avec succès ! "
+          }
+        }
+      }
+    },
+    "/posts/multipeImage": {
+      "get": {
+        "summary": "Creates a new Post with two or more image Resources",
+        "tags": [
+          "authenticated/post"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le post a été créer avec succès ! "
+          }
+        }
+      }
+    },
+    "/posts/video": {
+      "get": {
+        "summary": "Creates a new Post with one video Resources",
+        "tags": [
+          "authenticated/post"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le post a été créer avec succès ! "
+          }
+        }
+      }
+    },
+    "/post/{id}": {
+      "get": {
+        "summary": "Retrieve a Post by its id",
+        "tags": [
+          "authenticated/post"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Post id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le post a été créer avec succès ! "
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Post by its id",
+        "tags": [
+          "authenticated/post"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "example": 1,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": "Post"
+            },
+            "description": "User id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le post a été mise à jour avec succès ! "
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Post by its id",
+        "tags": [
+          "authenticated/post"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "example": 1,
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": "Post"
+            },
+            "description": "User id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le post a été supprimer avec succès ! "
+          }
+        }
+      }
+    },
+    "/comment/{post_id}": {
+      "post": {
+        "summary": "Create a new Comment on a Post",
+        "tags": [
+          "authenticated/comment"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Post id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le commentaire a été enregistrer !"
+          }
+        }
+      }
+    },
+    "/comment/{id}": {
+      "put": {
+        "summary": "Update a Comment",
+        "tags": [
+          "authenticated/comment"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Comment id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le commentaire a été mise à jour ! "
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Comment",
+        "tags": [
+          "authenticated/comment"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Comment id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le commentaire a été supprimer ! "
+          }
+        }
+      }
+    },
+    "/votes/posts": {
+      "get": {
+        "summary": "Retrieve the User's Feedback on Post",
+        "tags": [
+          "authenticated/vote"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le post a été voté! "
+          }
+        }
+      }
+    },
+    "/votes/comments": {
+      "get": {
+        "summary": "Retrieve the User's Feedback on Comment",
+        "tags": [
+          "authenticated/vote"
+        ],
+        "responses": {
+          "201": {
+            "description": "Le commentaire a été voté! "
+          }
+        }
+      }
+    },
+    "/votes/{type}/{id}": {
+      "get": {
+        "summary": "Retrieve a Post or Comment Feedback list",
+        "tags": [
+          "authenticated/vote"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "comment"
+            },
+            "description": "Feedback type ('post' or 'comment')"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Entity id (Post or Comment)"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Voté créer avec succès"
+          }
+        }
+      }
+    },
+    "/votes/{id}": {
+      "post": {
+        "summary": "Retrieve a Post or Comment Feedback list",
+        "tags": [
+          "authenticated/vote"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Entity id (Post or Comment)"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Voté enregistré avec succès"
+          }
+        }
+      }
+    },
+    "/follow/{following_id}": {
+      "get": {
+        "summary": "Create a new Follow between two User",
+        "tags": [
+          "authenticated/follow"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "following_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Follow créer avec succès"
+          }
+        }
+      }
+    },
+    "/unfollow/{following_id}": {
+      "get": {
+        "summary": "Delete a Follow between two User",
+        "tags": [
+          "authenticated/follow"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "following_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Follow retiré avec succès"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "Register a new User",
+        "tags": [
+          "unauthenticated/auth"
+        ],
+        "responses": {
+          "201": {
+            "description": "Utilisateur enregistré avec succès"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login a User",
+        "tags": [
+          "unauthenticated/auth"
+        ],
+        "responses": {
+          "201": {
+            "description": "Connexion enregistré avec succès"
+          }
+        }
+      }
+    },
+    "/password_reset/{email_address}": {
+      "get": {
+        "summary": "Send a email to reset the User password",
+        "tags": [
+          "unauthenticated/auth"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email_address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "example": "alex11@gmail.com"
+            },
+            "description": "User email address"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Un email a été envoyé à l'adresse indiquée."
+          }
+        }
+      }
+    },
+    "/password_reset/{token}": {
+      "post": {
+        "summary": "Send a email to reset the User password",
+        "tags": [
+          "unauthenticated/auth"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzkpX(...)KKFk6yJV_adQssw5c"
+            },
+            "description": "PasswordReset JWT token"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Un email a été envoyé à l'adresse indiquée."
+          }
+        }
+      }
+    },
+    "/verify_email/{token}": {
+      "get": {
+        "summary": "Confirm the mail from the token",
+        "tags": [
+          "public"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "JWT token"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Le mail a été confirmer"
+          }
+        }
+      }
+    },
+    "/image/placeholder/{image_name}": {
+      "get": {
+        "summary": "Display a placeholder Resource by image_name",
+        "tags": [
+          "public"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "image_name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "image.jpeg"
+            },
+            "description": "Resource name"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Image téléchargé avec succès"
+          }
+        }
+      }
+    },
+    "/image/user/{user_id}/{image_name}": {
+      "get": {
+        "summary": "Display a User Resource by user_id and image_name",
+        "tags": [
+          "public"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User id"
+          },
+          {
+            "in": "path",
+            "name": "image_name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "image.jpeg"
+            },
+            "description": "Resource name"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Image téléchargé avec succès"
+          }
+        }
+      }
+    },
+    "/image/post/{post_id}/{image_name}": {
+      "get": {
+        "summary": "Display a Post Resource by post_id and image_name",
+        "tags": [
+          "public"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "post_id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Post id"
+          },
+          {
+            "in": "path",
+            "name": "image_name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "image.jpeg"
+            },
+            "description": "Resource name"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Image téléchargé avec succès"
+          }
+        }
+      }
+    },
+    "/image/badge/{image_name}": {
+      "get": {
+        "summary": "Display a Badge Resource by image_name",
+        "tags": [
+          "public"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "image_name",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "image.jpeg"
+            },
+            "description": "Resource name"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Image téléchargé avec succès"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Status": {
+        "description": "Status object schema",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "actif"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          }
+        },
+        "type": "object"
+      },
+      "Resource": {
+        "description": "Resource object schema",
+        "required": [
+          "id",
+          "link",
+          "name",
+          "status_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "example": "http://localhost:8000/api/image/image.jpeg"
+          },
+          "name": {
+            "type": "string",
+            "example": "image.jpeg"
+          },
+          "status_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          }
+        },
+        "type": "object"
+      },
+      "Role": {
+        "description": "Role object schema",
+        "required": [
+          "id",
+          "name",
+          "status_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Email vérifié"
+          },
+          "status_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          }
+        },
+        "type": "object"
+      },
+      "User": {
+        "description": "User object schema",
+        "required": [
+          "id",
+          "username",
+          "email",
+          "password",
+          "role_id",
+          "status_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "username": {
+            "type": "string",
+            "example": "alex11",
+            "minLength": 3,
+            "maxLength": 32
+          },
+          "email": {
+            "type": "string",
+            "example": "alex11@gmail.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "example": "Test123!",
+            "format": "password",
+            "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$/"
+          },
+          "email_verified": {
+            "type": "boolean",
+            "example": 0
+          },
+          "email_token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzkpX(...)KKFk6yJV_adQssw5c"
+          },
+          "role_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "status_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "resource_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "resource": {
+            "$ref": "#/components/schemas/Resource"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          }
+        },
+        "type": "object"
+      },
+      "Post": {
+        "description": "Post object schema",
+        "required": [
+          "id",
+          "title",
+          "user_id",
+          "is_edited",
+          "status_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Nouveau super post"
+          },
+          "text": {
+            "type": "string",
+            "example": "Description de mon super post"
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "is_edited": {
+            "type": "boolean",
+            "default": 0,
+            "example": 0,
+            "description": "Is the post edited ?"
+          },
+          "status_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2021-01-01T12:00:00.000Z"
+          }
+        },
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "description": "Error returned in case of 4xx HTTP status code",
+        "required": [
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

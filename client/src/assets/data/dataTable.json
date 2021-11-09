@@ -1,0 +1,37 @@
+{
+	"tableOptions": {
+		"dynamicTableOptions": [
+			{
+				"value": "users",
+				"label": "Utilisateurs"
+			},
+			{
+				"value": "posts",
+				"label": "Posts"
+			},
+			{
+				"value": "categories",
+				"label": "Catégories"
+			}
+		]
+	},
+	"users": {
+		"headers": [
+			{ "value": "Nom d'utilisateur" },
+			{ "value": "Email" },
+			{ "value": "Date de création" },
+			{ "value": "Nom d'utilisateur" },
+			{ "value": "Actions", "align": "center" }
+		],
+		"properties": [{ "value": "username" }, { "value": "email" }, { "value": "created_at" }]
+	},
+	"posts": {
+		"headers": [
+			{ "value": "Titre" },
+			{ "value": "Utilisateur" },
+			{ "value": "Date de création" },
+			{ "value": "Actions", "align": "center" }
+		],
+		"properties": [{ "value": "title" }, { "value": "user.username" }, { "value": "created_at" }]
+	}
+}
